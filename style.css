@@ -1,0 +1,387 @@
+/* ==========================================================================
+   1. VARIABLES GLOBALES (:root)
+   Define la paleta de colores del portafolio para mantener coherencia y
+   facilitar cambios desde un solo punto mediante var(--nombre).
+   ========================================================================== */
+:root {
+    --color-principal: #2b3a4a; /* Azul pizarra: tono formal y sobrio */
+    --color-acento: #b07d4f;    /* Terracota/caramelo: acento cálido para bordes y hover */
+    --color-fondo: #f4f1ea;     /* Papel cálido: fondo suave que reduce la fatiga visual */
+    --color-texto: #2d3136;     /* Gris carbón: buen contraste de lectura */
+    --color-borde: #ded8ce;     /* Borde sutil para delimitar bloques */
+    --color-subtitulos: #3b4d5e;/* Azul intermedio para subtítulos complementarios */
+}
+
+/* ==========================================================================
+   2. RESET UNIVERSAL Y ESTILOS BASE
+   Elimina márgenes/rellenos por defecto del navegador, activa border-box para
+   que width/height incluyan padding y border, y define la tipografía base.
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lora', Georgia, serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.8; /* Espaciado generoso entre líneas para facilitar la lectura */
+}
+
+a {
+    color: var(--color-texto);
+}
+
+/* Tipografía editorial compartida por títulos y subtítulos */
+.encabezado__titulo,
+h1,
+h2,
+h3,
+.seccion__titulo,
+.proyecto__titulo,
+.subtitulo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+}
+
+/* ==========================================================================
+   3. ENCABEZADO Y NAVEGACIÓN
+   Barra superior con título, menú flexible y botón hamburguesa para móvil.
+   ========================================================================== */
+.encabezado {
+    background-color: var(--color-principal);
+    color: #ffffff;
+    padding: 35px 20px;
+    text-align: center;
+    border-bottom: 4px solid var(--color-acento);
+}
+
+.menu__lista {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.menu__enlace {
+    display: inline-block; /* Permite aplicar transform: scale() de forma estable */
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    padding: 8px 26px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+.menu__enlace:hover {
+    color: var(--color-acento);
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--color-acento);
+    transform: scale(1.06);
+}
+
+/* Botón hamburguesa: oculto en pantallas grandes, visible en móvil */
+.menu-hamburguesa {
+    display: none;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 4px;
+    font-size: 1.4rem;
+    padding: 4px 12px;
+    cursor: pointer;
+    margin-top: 14px;
+}
+
+.menu-hamburguesa:hover {
+    color: var(--color-acento);
+    border-color: var(--color-acento);
+}
+
+/* ==========================================================================
+   4. CONTENEDOR PRINCIPAL Y TARJETAS
+   Estructura central de la página y estilo base de tarjeta para bloques.
+   ========================================================================== */
+.contenido {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 30px 40px;
+}
+
+main,
+section,
+.proyecto,
+.habilidades,
+.complemento {
+    background-color: #ffffff;
+    border: 1px solid var(--color-borde);
+    border-radius: 10px;
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Se limpia <main> para que actúe como contenedor invisible y no como tarjeta */
+main {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.seccion__titulo {
+    color: var(--color-principal);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--color-acento);
+    padding-bottom: 8px;
+}
+
+.subtitulo {
+    color: var(--color-principal);
+    font-size: 1.2rem;
+    margin-top: 15px;
+}
+
+.imagen {
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   5. SECCIONES ESPECÍFICAS (PRESENTACIÓN, HABILIDADES, PROYECTOS, COMPLEMENTO)
+   ========================================================================== */
+
+/* Presentación: texto e imagen distribuidos con Flexbox */
+.presentacion_contenido {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    border: 1px solid var(--color-borde);
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.presentacion_contenido .texto {
+    flex: 1;
+    min-width: 280px;
+}
+
+/* Habilidades: tarjetas flexibles y listas con sangría restaurada */
+.contenedor-habilidades {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.tarjeta-habilidad {
+    flex: 1 1 320px;
+    margin-bottom: 0;
+}
+
+.lista-habilidades {
+    padding-left: 20px;
+    margin-top: 12px;
+}
+
+.habilidad {
+    margin-bottom: 10px;
+}
+
+/* Proyectos: título a ancho completo y tarjetas flexibles */
+.seccion_proyectos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.seccion_proyectos h2 {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.proyecto {
+    flex: 1 1 320px;
+    margin: 0;
+}
+
+/* Complemento ("Te puede interesar"): sin margen inferior extra antes del footer */
+.complemento {
+    color: var(--color-texto);
+    margin-bottom: 0;
+}
+
+.complemento__titulo {
+    color: var(--color-subtitulos);
+}
+
+/* ==========================================================================
+   6. PIE DE PÁGINA (FOOTER)
+   ========================================================================== */
+.pie {
+    color: var(--color-texto);
+    text-align: center;
+    padding: 20px 20px;
+    font-size: 0.95rem;
+    border-top: 1px solid var(--color-borde);
+}
+
+/* ==========================================================================
+   7. MEDIA QUERIES (DISEÑO RESPONSIVE)
+   ========================================================================== */
+
+/* 7.1 MOBILE (celulares: hasta 600px) */
+@media (max-width: 600px) {
+    .encabezado {
+        padding: 22px 14px;
+    }
+
+    .encabezado__titulo {
+        font-size: 1.35rem;
+        line-height: 1.3;
+    }
+
+    .menu-hamburguesa {
+        display: inline-block;
+    }
+
+    /* Menú oculto por defecto en móvil; se activa desde JS con .is-open */
+    .menu__lista {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 14px;
+        width: 100%;
+    }
+
+    .menu__lista.is-open {
+        display: flex;
+    }
+
+    .menu__enlace {
+        display: inline-block;
+        width: 100%;
+        max-width: 240px;
+        padding: 8px 14px;
+        font-size: 0.92rem;
+    }
+
+    .menu__enlace:hover {
+        transform: scale(1.03);
+    }
+
+    .contenido {
+        padding: 18px 12px;
+    }
+
+    main,
+    section,
+    .proyecto,
+    .habilidades {
+        padding: 18px;
+        margin-bottom: 18px;
+    }
+
+    .seccion__titulo {
+        font-size: 1.35rem;
+    }
+
+    .presentacion_contenido {
+        padding: 18px;
+        gap: 18px;
+    }
+
+    .presentacion_contenido .imagen {
+        width: 100%;
+        max-width: 240px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .contenedor-habilidades {
+        gap: 16px;
+    }
+
+    .tarjeta-habilidad,
+    .proyecto {
+        flex: 1 1 100%;
+    }
+
+    .proyecto__imagen {
+        width: 100%;
+        max-width: 260px;
+        height: auto;
+    }
+
+    .pie {
+        padding: 24px 14px;
+        font-size: 0.88rem;
+    }
+}
+
+/* 7.2 TABLET (601px a 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .contenido {
+        max-width: 920px;
+        padding: 26px 20px;
+    }
+
+    main,
+    section,
+    .proyecto,
+    .habilidades {
+        padding: 22px;
+        margin-bottom: 24px;
+    }
+
+    .encabezado__titulo {
+        font-size: 1.7rem;
+    }
+
+    .seccion__titulo {
+        font-size: 1.6rem;
+    }
+
+    .presentacion_contenido {
+        gap: 28px;
+        padding: 24px;
+    }
+
+    .presentacion_contenido .imagen {
+        width: 250px;
+        height: auto;
+    }
+
+    .proyecto {
+        flex: 1 1 280px;
+    }
+}
+
+/* 7.3 DESKTOP (pantallas grandes: desde 1025px) */
+@media (min-width: 1025px) {
+    .contenido {
+        max-width: 1040px;
+        padding: 36px 24px;
+    }
+
+    .encabezado {
+        padding: 40px 24px;
+    }
+
+    .encabezado__titulo {
+        font-size: 2rem;
+    }
+
+    .proyecto {
+        flex: 1 1 420px;
+    }
+}
